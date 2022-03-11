@@ -34,20 +34,23 @@ public class DifficultyManager : MonoBehaviour
 
     void BumpDifficulty(int minutes,int seconds)
     {
-        switch (seconds)
+        switch (minutes)
         {
             case (1):
                 enemySpawner.raiseSpawnChance(0.2f,1f);
-                enemySpawner.changeTimeBetweenSpawns(5);
+                enemySpawner.changeTimeBetweenSpawns(2);
                 break;
             case (2):
-                enemySpawner.raiseSpawnChance(0.1f,1f);
-                enemySpawner.changeTimeBetweenSpawns(4);
+                enemySpawner.raiseSpawnChance(0.2f,2f);
+                enemySpawner.changeTimeBetweenSpawns(1);
                 break;
-            //case (3):
-            //    break;
-            //case (4):
-            //    break;
+            case (3):
+                //enemySpawner.raiseSpawnChance(0.2f, 2f);
+                enemySpawner.changeTimeBetweenSpawns(0.5f);
+                break;
+            case (4):
+                enemySpawner.changeTimeBetweenSpawns(0.2f);
+                break;
             //case (5):
             //    break;
             default:

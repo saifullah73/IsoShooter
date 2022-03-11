@@ -9,13 +9,13 @@ public class EnemySpawner : MonoBehaviour
     public GameObject[] spawnPoints;
     public float timeBetweenSpawns;
     private float timer;
-    // Start is called before the first frame update
+
+    
     void Start()
     {
         InvokeRepeating("SpawnEnemy", 0, timeBetweenSpawns);
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -45,7 +45,6 @@ public class EnemySpawner : MonoBehaviour
     {
         int idx = Random.Range(0,spawnPoints.Length);
         GameObject spawnPoint = spawnPoints[idx];
-        //Bounds bounds = spawnPoint.GetComponent<MeshFilter>().mesh.bounds;
         float xMin = spawnPoint.transform.position.x - spawnPoint.transform.localScale.x/2;
         float xMax = spawnPoint.transform.position.x + spawnPoint.transform.localScale.x/2;
         float zMin = spawnPoint.transform.position.z - spawnPoint.transform.localScale.z/2;
@@ -54,7 +53,7 @@ public class EnemySpawner : MonoBehaviour
         return newVec;
     }
 
-    public void changeTimeBetweenSpawns(int seconds)
+    public void changeTimeBetweenSpawns(float seconds)
     {
         timeBetweenSpawns = seconds;
         CancelInvoke("SpawnEnemy");

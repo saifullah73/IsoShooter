@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
-    Rigidbody rb;
     public float fallSpeed;
     private bool exploded;
     public GameObject body;
+    private Rigidbody rb;
     private SphereCollider blastTrigger;
     private CapsuleCollider rocketCollider;
     public ParticleSystem explosionEffect;
+    public float damage;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,9 +29,9 @@ public class Missile : MonoBehaviour
             Destroy(body);
             Destroy(rb);
             Destroy(rocketCollider);
+            //destroying blastTrigger with 0.1f delay, to account for physics update for Trigger Stay
             Destroy(blastTrigger, 0.1f);
             Destroy(gameObject, 2);
-            //play particle effects and kill object when they end
         }
         
     }
@@ -38,20 +39,22 @@ public class Missile : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         explosionEffect.Play();
+        blastTrigger.enabled = true;
         exploded = true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.tag);
+        if (other.gameObject.CompareTag("enemy") && exploded)
+        {
+            other.gameObject.GetComponent<EnemyController>().TakeDamage(damage);
+            //adding knockback to enemies
+            //other.attachedRigidbody.AddForce(-other.transform.forward * 100, ForceMode.Impulse);
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("enemy") && exploded)
-        {
-            other.gameObject.GetComponent<EnemyController>().TakeDamage(50);
-            //other.attachedRigidbody.AddForce(-other.transform.forward * 100, ForceMode.Impulse);
-        }
+        
     }
 }

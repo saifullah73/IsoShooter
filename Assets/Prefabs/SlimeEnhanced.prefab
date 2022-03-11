@@ -499,8 +499,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageColor: {r: 1, g: 0, b: 0, a: 0}
-  damageDealt: 1
+  damageDealt: 3
   ColorRenderer: {fileID: 1094640344356552746}
   speed: 1
-  attackDelay: 1
   health: 40
+  attackDelay: 1

@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missile: {fileID: 654789296309982031, guid: bc371b27ac86c4fa58a2633148e39719, type: 3}
-  timeBetweenSpawns: 10
+  timeBetweenSpawns: 20
 --- !u!1 &100626763
 GameObject:
   m_ObjectHideFlags: 0
@@ -2686,6 +2686,7 @@ GameObject:
   - component: {fileID: 1760502442}
   - component: {fileID: 1760502443}
   - component: {fileID: 1760502444}
+  - component: {fileID: 1760502445}
   m_Layer: 0
   m_Name: SceneLogic
   m_TagString: Untagged
@@ -2723,7 +2724,7 @@ MonoBehaviour:
   - {fileID: 1855227608}
   - {fileID: 733007635}
   - {fileID: 1642569151}
-  timeBetweenSpawns: 10
+  timeBetweenSpawns: 5
 --- !u!4 &1760502441
 Transform:
   m_ObjectHideFlags: 0
@@ -2788,7 +2789,19 @@ MonoBehaviour:
   - {fileID: 879148800}
   - {fileID: 752537586}
   - {fileID: 1113940881}
-  timeBetweenSpawns: 10
+  timeBetweenSpawns: 30
+--- !u!114 &1760502445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760502439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a19507b5db5c24b31bb428bba43672c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1833094130
 GameObject:
   m_ObjectHideFlags: 0
@@ -3213,6 +3226,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4587659204288286646, guid: 0eb46691f68ee4d7aa42718baac461e0, type: 3}
+      propertyPath: shootDelay
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4587659204288286649, guid: 0eb46691f68ee4d7aa42718baac461e0, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -3262,12 +3279,16 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4587659204288286650, guid: 0eb46691f68ee4d7aa42718baac461e0, type: 3}
+      propertyPath: dashLength
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4587659204288286650, guid: 0eb46691f68ee4d7aa42718baac461e0, type: 3}
       propertyPath: movementSpeed
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4587659204288286650, guid: 0eb46691f68ee4d7aa42718baac461e0, type: 3}
       propertyPath: dashSpeedMultiplier
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0eb46691f68ee4d7aa42718baac461e0, type: 3}

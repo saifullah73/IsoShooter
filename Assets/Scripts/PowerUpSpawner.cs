@@ -7,7 +7,6 @@ public class PowerUpSpawner : MonoBehaviour
     public PowerUpContainer[] powerUps;
     public GameObject[] spawnPoints;
     public float timeBetweenSpawns;
-    private float timer;
     // Start is called before the first frame update
     void Start()
     {

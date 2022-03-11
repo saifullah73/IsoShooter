@@ -10,30 +10,30 @@ public class EnemyController : MonoBehaviour
 {
     private Transform player;
     private PlayerController playerController;
-    //private CharacterController controller;
     private Animator animator;
+
     public Color damageColor;
     public float damageDealt;
     public Renderer ColorRenderer;
-    private bool dead = false;
     public float speed;
-    private float gravity = 9.8f;
+    public float health;
+
+    
     public float attackDelay = 1f;
     private float timer;
-    public float health = 5f;
+    private bool dead = false;
     private bool shouldFollow = true;
     private bool shouldAttack = false;
-
     private Color originalColor;
+
+
     // Start is called before the first frame update
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
         playerController = player.GetComponent<PlayerController>();
-        //controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         originalColor = ColorRenderer.material.color;
-        //originalColor = gameObject.GetComponent<Renderer>().material.color;
         
     }
     void Start()
@@ -58,7 +58,6 @@ public class EnemyController : MonoBehaviour
         }
         if (health <= 0 && !dead)
         {
-            Debug.Log("dying");
             dead = true;
             StartCoroutine(Die());
         }
@@ -67,8 +66,8 @@ public class EnemyController : MonoBehaviour
     IEnumerator Die()
     {
         animator.SetTrigger("Die");
-        yield return new WaitForSeconds(1);
-        Destroy(gameObject);
+        Destroy(gameObject,2);
+        yield return null;
 
     }
 
@@ -132,23 +131,4 @@ public class EnemyController : MonoBehaviour
             animator.SetBool("Attack", false);
         }
     }
-
-    //public void OnControllerColliderHit(ControllerColliderHit hit)
-    //{
-    //    if (hit.gameObject.CompareTag("Player"))
-    //    {
-    //        if (timer < 0)
-    //        {
-    //            animator.SetTrigger("Attack");
-    //            playerController.DamagePlayer(1);
-    //            timer = attackDelay;
-    //        }
-    //        else
-    //        {
-    //            timer -= Time.deltaTime;
-    //        }
-    //    }
-    //}
-
-
 }

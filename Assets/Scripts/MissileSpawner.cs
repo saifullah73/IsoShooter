@@ -11,7 +11,7 @@ public class MissileSpawner : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        InvokeRepeating("SpawnMissile", 5, 5);
+        InvokeRepeating("SpawnMissile",timeBetweenSpawns,timeBetweenSpawns);
     }
 
     // Update is called once per frame

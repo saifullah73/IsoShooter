@@ -7,32 +7,32 @@ public class ShootingController : MonoBehaviour
     public GameObject bulletTemplate;
     public GameObject attackPoint;
     public float shootDelay = 0.1f;
-    private bool isShooting = false;
     public GameObject gun;
-    // Start is called before the first frame update
+
+
     void Start()
-    {        
+    {
+        ResumeShooting(2f);
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        if (Input.GetMouseButton(0))
-        {
-            if (isShooting)
-            {
-                PauseShooting();
-                isShooting = false;
-            }
-            else
-            {
-                ResumeShooting(true);
-                isShooting = true;
-            }
+        //if (Input.GetMouseButton(0))
+        //{
+        //    if (isShooting)
+        //    {
+        //        PauseShooting();
+        //        isShooting = false;
+        //    }
+        //    else
+        //    {
+        //        ResumeShooting(true);
+        //        isShooting = true;
+        //    }
 
-        }
+        //}
         AimGun();
-
     }
 
     void AimGun()
@@ -56,11 +56,10 @@ public class ShootingController : MonoBehaviour
         CancelInvoke("Shoot");
     }
 
-    public void ResumeShooting(bool resumeShooting = false)
+    public void ResumeShooting(float startdelay = 0f)
     {
         gun.SetActive(true);
-        if (resumeShooting)
-            InvokeRepeating("Shoot", 0, shootDelay);
+        InvokeRepeating("Shoot",startdelay, shootDelay);
     }
 
     void Shoot()
@@ -68,6 +67,5 @@ public class ShootingController : MonoBehaviour
         GameObject bullet = Instantiate(bulletTemplate, attackPoint.transform.position, attackPoint.transform.rotation);
         bullet.transform.forward = attackPoint.transform.forward;
         bullet.GetComponent<Rigidbody>().velocity = attackPoint.transform.forward.normalized * 100;
-        //bullet.GetComponent<Rigidbody>().AddForce(attackPoint.transform.forward.normalized * 100, ForceMode.Impulse);
     }
 }

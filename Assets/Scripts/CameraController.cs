@@ -6,7 +6,8 @@ public class CameraController : MonoBehaviour
 {
     public GameObject player;
     public float animationDelay = 2f;
-    public Camera camera;
+    [SerializeField]
+    private Camera camera;
     // Update is called once per frame
 
     private void Start()
@@ -17,6 +18,7 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
+        //Debug.Log(Mathf.Sin(angle* Mathf.Deg2Rad));
         transform.position = player.transform.position;
         Animate();
     }

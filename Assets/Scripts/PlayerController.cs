@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed;
     public float dashSpeedMultiplier;
     public float turnSmoothTime;
-    public float dashLength;
+    public float dashLength;    
 
     public Renderer renderer;
 
@@ -24,9 +24,10 @@ public class PlayerController : MonoBehaviour
     private float turnSmoothVelocity;
     private float dashTimeLeft;
     private bool isDashing = false;
+    private bool isDead = false;
     private float totalHealth;
     private ShootingController shootingController;
-
+    private SceneManagement sceneManagement;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsMovementInput() && !isOpening() && !isDashing)
+        if (IsMovementInput() && !isOpening() && !isDashing && !isDead)
         {
             Move();
         }
@@ -59,7 +60,6 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(StartDash());
         }
-
         if (!controller.isGrounded)
         {
             controller.Move(Vector3.down * gravity * Time.deltaTime);
@@ -124,17 +124,24 @@ public class PlayerController : MonoBehaviour
         renderer.material.color = Color.red;
         yield return new WaitForSeconds(0.1f);
         renderer.material.color = originalColor;
+        if (health <= 0 && !isDead)
+        {
+            StartCoroutine(Die());
+        }
+    }
+
+    IEnumerator Die()
+    {
+        isDead = true;
+        shootingController.PauseShooting();
+        animator.SetTrigger("Die");
+        yield return new WaitForSeconds(2);
+        SceneManagement.instance.RestartGame();
+
     }
 
     public void DamagePlayer(float damage)
     {
         StartCoroutine(DamagePlayerAndFlash(damage));
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
     }
-
-
-
 }

@@ -6,6 +6,5 @@ using UnityEngine;
 public class PowerUpContainer
 {
     public GameObject instance;
-    [Range(0, 1)]
     public float spawnChance;
 }

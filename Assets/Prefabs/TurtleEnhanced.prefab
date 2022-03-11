@@ -985,11 +985,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageColor: {r: 1, g: 0, b: 0, a: 0}
-  damageDealt: 5
+  damageDealt: 7
   ColorRenderer: {fileID: 6585345880753610583}
   speed: 0.5
+  health: 100
   attackDelay: 0.5
-  health: 70
 --- !u!65 &1135036791384936863
 BoxCollider:
   m_ObjectHideFlags: 0
