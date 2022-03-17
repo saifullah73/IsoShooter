@@ -111,7 +111,7 @@ public class EnemyController : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !dead)
         {
             if (timer <= 0)
             {

@@ -8,6 +8,7 @@ public class ShootingController : MonoBehaviour
     public GameObject attackPoint;
     public float shootDelay = 0.1f;
     public GameObject gun;
+    public ParticleSystem muzzleFlash;
 
 
     void Start()
@@ -53,14 +54,22 @@ public class ShootingController : MonoBehaviour
     public void PauseShooting()
     {
         gun.SetActive(false);
+        muzzleFlash.Stop();
         CancelInvoke("Shoot");
     }
 
     public void ResumeShooting(float startdelay = 0f)
     {
         gun.SetActive(true);
+        Invoke("startMuzzleFlash", startdelay);
         InvokeRepeating("Shoot",startdelay, shootDelay);
     }
+
+    public void startMuzzleFlash()
+    {
+        muzzleFlash.Play();
+    }
+
 
     void Shoot()
     {
