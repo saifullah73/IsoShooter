@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Missile : MonoBehaviour
 {
@@ -10,7 +11,10 @@ public class Missile : MonoBehaviour
     private Rigidbody rb;
     private SphereCollider blastTrigger;
     private CapsuleCollider rocketCollider;
-    public ParticleSystem explosionEffect;
+    public VisualEffect rocketExplosion;
+    public Animator pointLightAnimator;
+    public GameObject decal;
+    ///public ParticleSystem explosionEffect;
     public float damage;
     // Start is called before the first frame update
     void Start()
@@ -31,16 +35,23 @@ public class Missile : MonoBehaviour
             Destroy(rocketCollider);
             //destroying blastTrigger with 0.1f delay, to account for physics update for Trigger Stay
             Destroy(blastTrigger, 0.1f);
-            Destroy(gameObject, 2);
+            Destroy(gameObject, 5);
         }
         
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        explosionEffect.Play();
-        blastTrigger.enabled = true;
-        exploded = true;
+        if (!exploded)
+        {
+            Vector3 point = collision.contacts[0].point;
+            Vector3 intialPostition = new Vector3(point.x, 0.2f, point.z);
+            Instantiate(decal, intialPostition, decal.transform.rotation);
+            rocketExplosion.Play();
+            pointLightAnimator.SetTrigger("Move");
+            blastTrigger.enabled = true;
+            exploded = true;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
