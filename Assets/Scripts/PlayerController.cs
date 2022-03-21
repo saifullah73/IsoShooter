@@ -28,6 +28,10 @@ public class PlayerController : MonoBehaviour
     private float totalHealth;
     private ShootingController shootingController;
     private SceneManagement sceneManagement;
+
+    public static PlayerController instance;
+
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -35,6 +39,7 @@ public class PlayerController : MonoBehaviour
         shootingController = GetComponent<ShootingController>();
         originalColor = renderer.material.color;
         totalHealth = health;
+        instance = this;
     }
     // Start is called before the first frame update
     void Start()
@@ -56,9 +61,9 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetFloat("Speed", 0);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(StartDash());
+            Dash();
         }
         if (!controller.isGrounded)
         {
@@ -76,6 +81,12 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Speed", heading.magnitude);
         controller.Move(heading * movementSpeed / 10);
         transform.rotation = Quaternion.Euler(0, angle, 0);
+    }
+
+    public void Dash()
+    {
+        if (!isDashing)
+            StartCoroutine(StartDash());
     }
 
     IEnumerator StartDash()
@@ -111,6 +122,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("health"))
         {
+            AudioManager.instance.PlayHealthPickup();
             health = Mathf.Clamp(health + 10, 0, totalHealth);
             Destroy(other.gameObject);
             UIManager.instance.updateHealth(health, totalHealth);

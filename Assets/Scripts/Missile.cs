@@ -14,6 +14,7 @@ public class Missile : MonoBehaviour
     public VisualEffect rocketExplosion;
     public Animator pointLightAnimator;
     public GameObject decal;
+    private AudioSource explosionAudio;
     ///public ParticleSystem explosionEffect;
     public float damage;
     // Start is called before the first frame update
@@ -23,6 +24,7 @@ public class Missile : MonoBehaviour
         rb.AddForce(Vector3.down * fallSpeed, ForceMode.Impulse);
         blastTrigger = GetComponent<SphereCollider>();
         rocketCollider = GetComponent<CapsuleCollider>();
+        explosionAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -44,6 +46,7 @@ public class Missile : MonoBehaviour
     {
         if (!exploded)
         {
+            explosionAudio.Play();
             Vector3 point = collision.contacts[0].point;
             Vector3 intialPostition = new Vector3(point.x, 0.2f, point.z);
             Instantiate(decal, intialPostition, decal.transform.rotation);
