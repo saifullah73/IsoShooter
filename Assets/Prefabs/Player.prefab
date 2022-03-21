@@ -3497,6 +3497,7 @@ GameObject:
   - component: {fileID: 4587659204288286646}
   - component: {fileID: 4587659204288286650}
   - component: {fileID: 4587659204288286645}
+  - component: {fileID: 520134174900721464}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3572,6 +3573,7 @@ MonoBehaviour:
   attackPoint: {fileID: 4587659203989127015}
   shootDelay: 0.2
   gun: {fileID: 4587659203089267753}
+  muzzleFlash: {fileID: 0}
 --- !u!114 &4587659204288286650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3589,6 +3591,7 @@ MonoBehaviour:
   dashSpeedMultiplier: 25
   turnSmoothTime: 0.1
   dashLength: 0.2
+  joystick: {fileID: 0}
   renderer: {fileID: 4587659203655331895}
 --- !u!135 &4587659204288286645
 SphereCollider:
@@ -3603,6 +3606,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.2
   m_Center: {x: 0, y: 0.03, z: 0}
+--- !u!114 &520134174900721464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4587659204288286644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d00792c733aa4834a1b3d6f0c956cf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missile: {fileID: 519446840841613133, guid: bc371b27ac86c4fa58a2633148e39719, type: 3}
+  timeBetweenSpawns: 10
 --- !u!1 &4587659204325823153
 GameObject:
   m_ObjectHideFlags: 0

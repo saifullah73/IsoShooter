@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     public Image healthBar;
     public TMPro.TMP_Text timer;
     public static UIManager instance;
+    public Button dashButton;
 
     public void Awake()
     {
@@ -21,7 +22,10 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-           
+        dashButton.onClick.AddListener(() =>
+        {
+            PlayerController.instance.Dash();
+        });
     }
 
     // Update is called once per frame

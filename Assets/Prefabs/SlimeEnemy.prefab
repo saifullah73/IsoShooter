@@ -160,8 +160,8 @@ MonoBehaviour:
   damageDealt: 1
   ColorRenderer: {fileID: 6599677885262501237}
   speed: 1
-  attackDelay: 1
   health: 20
+  attackDelay: 1
 --- !u!1 &3362553799176474390
 GameObject:
   m_ObjectHideFlags: 0

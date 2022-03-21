@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed;
     public float dashSpeedMultiplier;
     public float turnSmoothTime;
-    public float dashLength;    
-
+    public float dashLength;
+    public VariableJoystick joystick;
     public Renderer renderer;
 
 
@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        Application.targetFrameRate = 60;
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         shootingController = GetComponent<ShootingController>();
@@ -73,8 +74,13 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
+#if UNITY_EDITOR
         Vector3 rightMovement = right * Time.deltaTime * Input.GetAxis("Horizontal");
         Vector3 forwardMovement = forward * Time.deltaTime * Input.GetAxis("Vertical");
+#else
+        Vector3 rightMovement = right * Time.deltaTime * joystick.Horizontal;
+        Vector3 forwardMovement = forward * Time.deltaTime * joystick.Vertical;
+#endif
         Vector3 heading = Vector3.Normalize(rightMovement + forwardMovement);
         float targetAngle = Mathf.Atan2(heading.x, heading.z) * Mathf.Rad2Deg;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
@@ -115,7 +121,11 @@ public class PlayerController : MonoBehaviour
 
     private bool IsMovementInput()
     {
+#if UNITY_EDITOR
         return Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
+#else
+        return true;
+# endif
     }
 
     public void OnTriggerEnter(Collider other)

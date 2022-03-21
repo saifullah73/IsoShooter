@@ -45,12 +45,13 @@ public class BulletController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("obstacle"))
         {
-            Instantiate(decal, contact.point, rot2);
+            GameObject decalObj  = Instantiate(decal, contact.point, rot2);
+            Destroy(decalObj, 2);
         }
         Destroy(collider);
         Destroy(rb);
         Destroy(body);
-        //Destroy(obj, 1); // destroy decal after 1 sec
+        //Destroy(obj, 1); // destroy hit effect after 1 sec
         Destroy(gameObject, 1); //destroy whole buller object
 
     }
