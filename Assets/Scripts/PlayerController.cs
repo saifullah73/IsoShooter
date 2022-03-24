@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SceneManagement.isGamePaused) return;
         if (IsMovementInput() && !isOpening() && !isDashing && !isDead)
         {
             Move();
@@ -148,8 +149,7 @@ public class PlayerController : MonoBehaviour
         shootingController.PauseShooting();
         animator.SetTrigger("Die");
         yield return new WaitForSeconds(2);
-        SceneManagement.instance.RestartGame();
-
+        SceneManagement.instance.UpdateDeath();
     }
 
     public void DamagePlayer(float damage)

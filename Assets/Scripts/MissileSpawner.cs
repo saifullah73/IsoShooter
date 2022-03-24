@@ -7,16 +7,28 @@ public class MissileSpawner : MonoBehaviour
     public GameObject missile;
     public float timeBetweenSpawns;
     private GameObject player;
+    private float timer;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
-        InvokeRepeating("SpawnMissile",timeBetweenSpawns,timeBetweenSpawns);
+        timer = timeBetweenSpawns;
+        //InvokeRepeating("SpawnMissile",timeBetweenSpawns,timeBetweenSpawns);
     }
 
     // Update is called once per frame
     void Update()
-    {   
+    {
+        if (timer <= 0)
+        {
+            SpawnMissile();
+            timer = timeBetweenSpawns;
+        }
+        else
+        {
+            timer -= Time.deltaTime;
+        }
+        UIManager.instance.SetPowerUpTimer(timer, timeBetweenSpawns);
     }
 
 

@@ -45,6 +45,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SceneManagement.isGamePaused) return;
         if (!dead && shouldFollow)
         {
             transform.LookAt(player);

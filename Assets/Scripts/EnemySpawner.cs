@@ -18,7 +18,6 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        
     }
 
     void SpawnEnemy()

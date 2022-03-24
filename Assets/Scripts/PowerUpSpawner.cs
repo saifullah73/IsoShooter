@@ -16,7 +16,6 @@ public class PowerUpSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 
     void SpawnPowerUp()
