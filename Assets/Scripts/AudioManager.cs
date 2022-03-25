@@ -9,10 +9,20 @@ public class AudioManager : MonoBehaviour
     private AudioSource audioFX;
     [SerializeField]
     private AudioClip healthPickup;
+    public AudioClip UIClip;
+    public AudioClip GameStartClip;
     public static AudioManager instance;
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     void Start()
     {
@@ -22,6 +32,18 @@ public class AudioManager : MonoBehaviour
     public void PlayHealthPickup()
     {
         audioFX.clip = healthPickup;
+        audioFX.Play();
+    }
+
+    public void PlayUISoundEffect()
+    {
+        audioFX.clip = UIClip;
+        audioFX.Play();
+    }
+
+    public void PlayGameStartAudio()
+    {
+        audioFX.clip = GameStartClip;
         audioFX.Play();
     }
 }

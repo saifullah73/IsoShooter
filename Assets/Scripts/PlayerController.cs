@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,9 +28,11 @@ public class PlayerController : MonoBehaviour
     private bool isDead = false;
     private float totalHealth;
     private ShootingController shootingController;
-    private SceneManagement sceneManagement;
+
+    public FixedJoystick joystick;
 
     public static PlayerController instance;
+    public Button DashButton;
 
 
     private void Awake()
@@ -48,13 +51,14 @@ public class PlayerController : MonoBehaviour
         forward.y = 0;
         forward = Vector3.Normalize(forward);
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+        DashButton.onClick.AddListener(Dash);
     }
 
     // Update is called once per frame
     void Update()
     {
         if (SceneManagement.isGamePaused) return;
-        if (IsMovementInput() && !isOpening() && !isDashing && !isDead)
+        if (!isOpening() && !isDashing && !isDead)
         {
             Move();
         }
@@ -74,8 +78,14 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
+#if UNITY_EDITOR
         Vector3 rightMovement = right * Time.deltaTime * Input.GetAxis("Horizontal");
         Vector3 forwardMovement = forward * Time.deltaTime * Input.GetAxis("Vertical");
+#else
+        Vector3 rightMovement = right * Time.deltaTime * joystick.Horizontal;
+        Vector3 forwardMovement = forward * Time.deltaTime * joystick.Vertical;
+#endif
+
         Vector3 heading = Vector3.Normalize(rightMovement + forwardMovement);
         float targetAngle = Mathf.Atan2(heading.x, heading.z) * Mathf.Rad2Deg;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);

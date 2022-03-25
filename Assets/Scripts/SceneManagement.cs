@@ -19,7 +19,8 @@ public class SceneManagement : MonoBehaviour
     public void RestartGame()
     {
         isGamePaused = false;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
+        UIManager.instance.InitializeGame();
     }
 
     public void UpdateDeath()

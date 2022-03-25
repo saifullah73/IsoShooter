@@ -19,8 +19,14 @@ public class CameraController : MonoBehaviour
     void LateUpdate()
     {
         //Debug.Log(Mathf.Sin(angle* Mathf.Deg2Rad));
-        transform.position = player.transform.position;
-        Animate();
+        if (!SceneManagement.isGamePaused)
+        {
+            transform.position = Vector3.Lerp(transform.position, player.transform.position,0.1f);
+        }
+
+        //transform.tran
+            
+        
     }
 
 

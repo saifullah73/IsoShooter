@@ -9,6 +9,8 @@ public class ShootingController : MonoBehaviour
     public float shootDelay = 0.1f;
     public GameObject gun;
     public ParticleSystem muzzleFlash;
+    private Vector2 mouseOnScreen;
+
 
 
     void Start()
@@ -39,7 +41,17 @@ public class ShootingController : MonoBehaviour
     void AimGun()
     {
         Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
-        Vector2 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        //Vector2 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
+#if UNITY_EDITOR
+        mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
+#else
+      if (Input.touchCount > 0)
+        {
+            Vector3 pos = new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y,0);
+            mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(pos);
+        }
+#endif
+
         float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
         // invesring angle becuase unity rotates anti-clockwise and adding 45 to offset for isometric
         angle = -angle - 45;

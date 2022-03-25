@@ -35,6 +35,15 @@ public class UIManager : MonoBehaviour
 
     public Button PauseButton;
     public Button ResumeButton;
+    public Button PauseHomeButton;
+
+
+    public Button SettingsBack;
+    public Slider SettingsSlider;
+
+    public AudioListener Audiolistener;
+
+    public Animator CameraAnimator;
 
 
 
@@ -50,14 +59,40 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SceneManagement.instance.PauseGame();
-        HomeStartGameButton.onClick.AddListener(StartGame);
-        HomeExitButton.onClick.AddListener(ExitGame);
-        DieGoToHomeButton.onClick.AddListener(RestartGame);
-        DieExitButton.onClick.AddListener(ExitGame);
-        PauseButton.onClick.AddListener(PauseUI);
-        ResumeButton.onClick.AddListener(ResumeUI);
         InitializeGame();
+    }
+
+
+    void GoToSettings()
+    {
+        AudioManager.instance.PlayUISoundEffect();
+        Debug.Log("Going to setting");
+        UIAnimator.SetBool("Setting",true);
+        CameraAnimator.SetBool("Setting", true);
+        SetSettingGroupActive(true);
+        SetExitGroupActive(false);
+        SetHomeGroupActive(false);
+        SetHudGroupActive(false);
+        SetPauseGroupActive(false);
+    }
+
+    void SettingsToHome()
+    {
+        AudioManager.instance.PlayUISoundEffect();
+        Debug.Log("Going to home");
+        UIAnimator.SetBool("Setting", false);
+        CameraAnimator.SetBool("Setting", false);
+        SetSettingGroupActive(false);
+        SetExitGroupActive(false);
+        SetHomeGroupActive(true);
+        SetHudGroupActive(false);
+        SetPauseGroupActive(false);
+    }
+
+    void VolumeChanged(float value)
+    {
+        Debug.Log("Chaging audio");
+        AudioListener.volume = value;
     }
 
 
@@ -68,11 +103,13 @@ public class UIManager : MonoBehaviour
         SetExitGroupActive(true);
         SetHomeGroupActive(false);
         SetHudGroupActive(false);
+        SetPauseGroupActive(false);
         DieTimerText.text = timerText;
     }
 
     public void PauseUI()
     {
+        AudioManager.instance.PlayUISoundEffect();
         Debug.Log("Pausing Game");
         UIAnimator.SetTrigger("Pause");
         SetSettingGroupActive(false);
@@ -85,6 +122,7 @@ public class UIManager : MonoBehaviour
 
     public void ResumeUI()
     {
+        AudioManager.instance.PlayUISoundEffect();
         Debug.Log("Resuming Game");
         UIAnimator.SetTrigger("Resume");
         SetSettingGroupActive(false);
@@ -97,12 +135,14 @@ public class UIManager : MonoBehaviour
 
     void ExitGame()
     {
+        AudioManager.instance.PlayUISoundEffect();
         Debug.Log("Quitting Game");
-        //SceneManagement.instance.QuitGame();
+        SceneManagement.instance.QuitGame();
     }
 
     void RestartGame()
     {
+        AudioManager.instance.PlayUISoundEffect();
         Debug.Log("Restarting Game");
         SceneManagement.instance.RestartGame();
     }
@@ -110,33 +150,39 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            SceneManagement.instance.PauseGame();
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManagement.instance.ResumeGame();
-        }
     }
 
-    void InitializeGame()
+    public void InitializeGame()
     {
+        SceneManagement.instance.PauseGame();
+        HomeStartGameButton.onClick.AddListener(StartGame);
+        HomeExitButton.onClick.AddListener(ExitGame);
+        DieGoToHomeButton.onClick.AddListener(RestartGame);
+        DieExitButton.onClick.AddListener(ExitGame);
+        PauseButton.onClick.AddListener(PauseUI);
+        ResumeButton.onClick.AddListener(ResumeUI);
+        PauseHomeButton.onClick.AddListener(RestartGame);
+        HomeSettingButton.onClick.AddListener(GoToSettings);
+        SettingsBack.onClick.AddListener(SettingsToHome);
+        SettingsSlider.onValueChanged.AddListener(VolumeChanged);
         Debug.Log("Initializing Game");
         SetSettingGroupActive(false);
         SetExitGroupActive(false);
         SetHomeGroupActive(true);
         SetHudGroupActive(false);
+        SetPauseGroupActive(false);
     }
 
     void StartGame()
     {
+        AudioManager.instance.PlayGameStartAudio();
         Debug.Log("Starting Game");
         UIAnimator.SetTrigger("HomeToHud");
         SetSettingGroupActive(false);
         SetExitGroupActive(false);
         SetHomeGroupActive(false);
         SetHudGroupActive(true);
+        SetPauseGroupActive(false);
         SceneManagement.instance.ResumeGame();
     }
 
