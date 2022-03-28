@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (SceneManagement.isGamePaused) return;
-        if (!isOpening() && !isDashing && !isDead)
+        if (IsMovementInput() && !isOpening() && !isDashing && !isDead)
         {
             Move();
         }
@@ -126,7 +126,12 @@ public class PlayerController : MonoBehaviour
 
     private bool IsMovementInput()
     {
+#if UNITY_EDITOR
         return Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
+
+#else
+        return joystick.Direction.magnitude != 0;
+#endif
     }
 
     public void OnTriggerEnter(Collider other)
@@ -134,7 +139,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("health"))
         {
             AudioManager.instance.PlayHealthPickup();
-            health = Mathf.Clamp(health + 10, 0, totalHealth);
+            health = Mathf.Clamp(health + 5, 0, totalHealth);
             Destroy(other.gameObject);
             UIManager.instance.updateHealth(health, totalHealth);
         }
