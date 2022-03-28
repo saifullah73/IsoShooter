@@ -37,6 +37,7 @@ public class BulletController : MonoBehaviour
         Quaternion rot = Quaternion.FromToRotation(Vector3.forward, contact.normal);
         Quaternion rot2 = Quaternion.FromToRotation(Vector3.forward, contact.normal);
         GameObject obj = Instantiate(hit, contact.point, rot);
+        obj.transform.parent = gameObject.transform;
         if (collision.gameObject.CompareTag("enemy"))
         {
             hitAudio.Stop();
@@ -45,13 +46,13 @@ public class BulletController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("obstacle"))
         {
-            Instantiate(decal, contact.point, rot2);
+            GameObject obj2 = Instantiate(decal, contact.point, rot2);
+            obj2.transform.parent = gameObject.transform;
         }
         Destroy(collider);
         Destroy(rb);
         Destroy(body);
-        //Destroy(obj, 1); // destroy decal after 1 sec
-        Destroy(gameObject, 1); //destroy whole buller object
+        Destroy(gameObject, 2); //destroy whole bullet object
 
     }
 }
