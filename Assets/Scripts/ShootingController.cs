@@ -44,10 +44,14 @@ public class ShootingController : MonoBehaviour
     {
         Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
 #if UNITY_EDITOR
-        mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
-        float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
-        // invesring angle becuase unity rotates anti-clockwise and adding 45 to offset for isometric
-        angle = -angle - 45;
+        //mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        //float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
+        //// invesring angle becuase unity rotates anti-clockwise and adding 45 to offset for isometric
+        //angle = -angle - 45;
+        Vector2 direction = aimJoystick.Direction;
+        float angle = AngleBetweenTwoPoints(Vector2.up, direction);
+        angle = scale(0, 180, 0, 360, angle);
+        angle = -angle + 45;
 
 #else
       //if (Input.touchCount > 0)
@@ -92,7 +96,7 @@ public class ShootingController : MonoBehaviour
     void Shoot()
     {
         GameObject bullet = Instantiate(bulletTemplate, attackPoint.transform.position, attackPoint.transform.rotation);
-        bullet.transform.forward = attackPoint.transform.forward;
+        //bullet.transform.forward = attackPoint.transform.forward;
         bullet.GetComponent<Rigidbody>().velocity = attackPoint.transform.forward.normalized * 100;
     }
 

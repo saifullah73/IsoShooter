@@ -37,6 +37,12 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        Application.targetFrameRate = 60;
+#if UNITY_EDITOR
+        Debug.unityLogger.logEnabled = true;
+#else
+        Debug.unityLogger.logEnabled = false;
+#endif
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         shootingController = GetComponent<ShootingController>();

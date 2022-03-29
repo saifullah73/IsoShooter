@@ -9626,6 +9626,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 61fc880a2281345a0bf9d2ce66277b35, type: 2}
     - target: {fileID: 2411918032133437385, guid: 0eb46691f68ee4d7aa42718baac461e0, type: 3}
+      propertyPath: missile
+      value: 
+      objectReference: {fileID: 1720194745421870948, guid: bc371b27ac86c4fa58a2633148e39719, type: 3}
+    - target: {fileID: 2411918032133437385, guid: 0eb46691f68ee4d7aa42718baac461e0, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}

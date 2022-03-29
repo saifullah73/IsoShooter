@@ -56,7 +56,7 @@ public class Missile : MonoBehaviour
             exploded = true;
         }
     }
-
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("enemy") && exploded)
