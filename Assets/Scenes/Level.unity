@@ -4401,7 +4401,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1010537732}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 410dd953696f046a2a6f95aaf3436fd9, type: 3}
@@ -7951,6 +7951,7 @@ MonoBehaviour:
   Audiolistener: {fileID: 100626766}
   CameraAnimator: {fileID: 525911042}
   postProcessingVolume: {fileID: 543852452}
+  camera: {fileID: 0}
 --- !u!114 &1760502443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8764,6 +8765,10 @@ PrefabInstance:
       propertyPath: attackPoint
       value: 
       objectReference: {fileID: 1912942298}
+    - target: {fileID: 8113764588861379595, guid: 62d55ede6850c4cbcaa1be912a6cf6c4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8888790804646176283, guid: 62d55ede6850c4cbcaa1be912a6cf6c4, type: 3}
       propertyPath: m_Name
       value: Player

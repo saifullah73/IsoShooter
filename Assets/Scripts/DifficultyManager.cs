@@ -20,8 +20,8 @@ public class DifficultyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int minutes = (int)(Time.time / 60);
-        int seconds = (int)Time.time % 60;
+        int minutes = (int)(Time.timeSinceLevelLoad / 60);
+        int seconds = (int)Time.timeSinceLevelLoad % 60;
         uiManager.UpdateTimer(minutes, seconds);
         if (lastMin != minutes)
         {
