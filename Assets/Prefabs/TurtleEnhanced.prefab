@@ -988,7 +988,7 @@ MonoBehaviour:
   damageDealt: 7
   ColorRenderer: {fileID: 6585345880753610583}
   speed: 0.5
-  health: 100
+  health: 50
   attackDelay: 0.5
 --- !u!65 &1135036791384936863
 BoxCollider:

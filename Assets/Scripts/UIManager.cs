@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
+
 public class UIManager : MonoBehaviour
 {
     private string timerText;
@@ -40,11 +41,11 @@ public class UIManager : MonoBehaviour
 
     public Button SettingsBack;
     public Slider SettingsSlider;
+    public Toggle SettingsPostProcessingToggle;
 
     public AudioListener Audiolistener;
-
     public Animator CameraAnimator;
-
+    public GameObject postProcessingVolume;
 
 
 
@@ -93,6 +94,14 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("Chaging audio");
         AudioListener.volume = value;
+    }
+
+    void togglePressed(bool flag)
+    {
+        if (flag)
+            postProcessingVolume.SetActive(true);
+        else
+            postProcessingVolume.SetActive(false);
     }
 
 
@@ -165,6 +174,7 @@ public class UIManager : MonoBehaviour
         HomeSettingButton.onClick.AddListener(GoToSettings);
         SettingsBack.onClick.AddListener(SettingsToHome);
         SettingsSlider.onValueChanged.AddListener(VolumeChanged);
+        SettingsPostProcessingToggle.onValueChanged.AddListener(togglePressed);
         Debug.Log("Initializing Game");
         SetSettingGroupActive(false);
         SetExitGroupActive(false);
@@ -221,11 +231,14 @@ public class UIManager : MonoBehaviour
         {
             HomeScreenGroup.interactable = false;
             HomeScreenGroup.blocksRaycasts = false;
+            HomeScreenGroup.gameObject.SetActive(false);
         }
         else
         {
+            HomeScreenGroup.gameObject.SetActive(true);
             HomeScreenGroup.interactable = true;
             HomeScreenGroup.blocksRaycasts = true;
+            
         }
     }
 
@@ -235,9 +248,11 @@ public class UIManager : MonoBehaviour
         {
             ExitGroup.interactable = false;
             ExitGroup.blocksRaycasts = false;
+            ExitGroup.gameObject.SetActive(false);
         }
         else
         {
+            ExitGroup.gameObject.SetActive(true);
             ExitGroup.interactable = true;
             ExitGroup.blocksRaycasts = true;
         }
@@ -249,9 +264,11 @@ public class UIManager : MonoBehaviour
         {
             HudGroup.interactable = false;
             HudGroup.blocksRaycasts = false;
+            HudGroup.gameObject.SetActive(false);
         }
         else
         {
+            HudGroup.gameObject.SetActive(true);
             HudGroup.interactable = true;
             HudGroup.blocksRaycasts = true;
         }
@@ -263,9 +280,11 @@ public class UIManager : MonoBehaviour
         {
             SettingGroup.interactable = false;
             SettingGroup.blocksRaycasts = false;
+            SettingGroup.gameObject.SetActive(false);
         }
         else
         {
+            SettingGroup.gameObject.SetActive(true);
             SettingGroup.interactable = true;
             SettingGroup.blocksRaycasts = true;
         }
@@ -277,9 +296,11 @@ public class UIManager : MonoBehaviour
         {
             PauseGroup.interactable = false;
             PauseGroup.blocksRaycasts = false;
+            PauseGroup.gameObject.SetActive(false);
         }
         else
         {
+            PauseGroup.gameObject.SetActive(true);
             PauseGroup.interactable = true;
             PauseGroup.blocksRaycasts = true;
         }

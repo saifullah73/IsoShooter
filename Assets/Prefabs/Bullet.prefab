@@ -5077,7 +5077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d3171f245134cc4ba033076c0cf1a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  damage: 10
   hit: {fileID: 4689788215909192249, guid: 0463346eecd3745a8ad079f53387afd3, type: 3}
   body: {fileID: 6060779507461386397}
   decal: {fileID: 3447040795568116101, guid: 040ab7d0f9c294cceb85b417755f6716, type: 3}

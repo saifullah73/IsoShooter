@@ -502,5 +502,5 @@ MonoBehaviour:
   damageDealt: 3
   ColorRenderer: {fileID: 1094640344356552746}
   speed: 1
-  health: 40
+  health: 20
   attackDelay: 1

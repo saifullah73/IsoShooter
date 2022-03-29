@@ -8,6 +8,7 @@ public class ShootingController : MonoBehaviour
     public GameObject attackPoint;
     public float shootDelay = 0.1f;
     public GameObject gun;
+    public GameObject pivot;
     public ParticleSystem muzzleFlash;
     private Vector2 mouseOnScreen;
 
@@ -44,14 +45,11 @@ public class ShootingController : MonoBehaviour
     {
         Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
 #if UNITY_EDITOR
-        //mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
-        //float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
-        //// invesring angle becuase unity rotates anti-clockwise and adding 45 to offset for isometric
-        //angle = -angle - 45;
-        Vector2 direction = aimJoystick.Direction;
-        float angle = AngleBetweenTwoPoints(Vector2.up, direction);
-        angle = scale(0, 180, 0, 360, angle);
-        angle = -angle + 45;
+        mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
+        // invesring angle becuase unity rotates anti-clockwise and adding 45 to offset for isometric
+        angle = -angle - 45;
+
 
 #else
       //if (Input.touchCount > 0)
@@ -66,6 +64,7 @@ public class ShootingController : MonoBehaviour
 #endif
 
         gun.transform.rotation = Quaternion.Euler(new Vector3(0f, angle, 0f));
+        pivot.transform.rotation = Quaternion.Euler(new Vector3(0f, angle, 0f));
     }
 
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)

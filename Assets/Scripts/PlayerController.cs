@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance;
     public Button DashButton;
 
+    private bool isPlayerOpeningFlag = true;
+
 
     private void Awake()
     {
@@ -127,7 +129,17 @@ public class PlayerController : MonoBehaviour
 
     private bool isOpening()
     {
-        return animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "anim_open" || animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "GunMount";
+        //return animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "anim_open" || animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "GunMount";
+        if (!isPlayerOpeningFlag)
+        {
+            isPlayerOpeningFlag = false;
+        }
+        else
+        {
+            isPlayerOpeningFlag = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "anim_open" || animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "GunMount";
+        }
+        return isPlayerOpeningFlag;
+
     }
 
     private bool IsMovementInput()
